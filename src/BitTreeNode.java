@@ -1,5 +1,5 @@
 /**
- * An implementation of a node for a Tree with an inner leaf class
+ * An implementation of a node for a Tree
  * 
  * @author Alma Ordaz
  * 
@@ -39,8 +39,4 @@ public class BitTreeNode {
     this.right = null;
 
   }
-
-  class BitTreeLeaf {
-
-  }// class BitTreeLeaf
 }// class BitTreeNode
