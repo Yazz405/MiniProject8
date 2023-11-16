@@ -25,7 +25,7 @@ public class BrailleASCIITables {
    * corresponding ASCII character
    */
   public static String toASCII(String bits) {
-
+    BitTree tree = new Bit
   }
 
   /*

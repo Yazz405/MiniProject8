@@ -17,11 +17,11 @@ public class BrailleASCII {
     }
     
     if (args[0].equals("braille")) {
-      pen.println(toBraille(args[1]));
+      pen.println(BrailleASCIITables.toBraille(args[1].charAt(0)));
     } else if (args[0].equals("ascii")) {
-      pen.println(toASCII(args[1]));
-    } else if (args[0].equals(unicode)) {
-      pen.println(toUnicode(args[1]));
+      pen.println(BrailleASCIITables.toASCII(args[1]));
+    } else if (args[0].equals("unicode")) {
+      pen.println(BrailleASCIITables.toUnicode(args[1]));
     } else {
 
     }
