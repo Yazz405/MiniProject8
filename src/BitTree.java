@@ -1,6 +1,6 @@
 
 /**
- * An implementation of a BitTree usind nodes and leaves
+ * An implementation of a BitTree using nodes
  * 
  * @author Alma Ordaz
  * 
@@ -8,7 +8,7 @@
 
 import java.io.PrintWriter;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -38,7 +38,7 @@ public class BitTree {
   public BitTree(int n) {
     this.size = n;
     this.root = new BitTreeNode("");
-  }
+  }// BitTree
 
   // +----------------+----------------------------------------------
   // | Static Methods |
@@ -85,7 +85,7 @@ public class BitTree {
 
     current.left = new BitTreeNode(value);
 
-  }
+  }// set
 
   /*
    * follows the path through the tree given by bits, returning the value at the
@@ -122,31 +122,17 @@ public class BitTree {
 
     return current.left.value;
 
-  }
+  }// get
 
   /*
    * prints out the contents of the tree in CSV format
    */
   public void dump(PrintWriter pen) {
-    dumpHelper(pen, this.root.left);
-    dumpHelper(pen, this.root.right);
-  }
+    String[] bits = new String[this.size];
 
-  void dumpHelper(PrintWriter pen, BitTreeNode node) {
-    if (node == null) {
-
-    } else if (node.left == null && node.right == null) {
-      pen.println("," + node.value);
-    } else {
-      pen.print(node.value);
-
-      if ((node.left != null) || (node.right != null)) {
-        dumpHelper(pen, node.left);
-        dumpHelper(pen, node.right);
-      }
-
-    } // else-if
-  }
+    dumpHelper(pen, this.root.left, bits, 0);
+    dumpHelper(pen, this.root.right, bits, 0);
+  }// dump
 
   /*
    * reads a series of lines of the form bits,value and stores them in the tree
@@ -154,24 +140,32 @@ public class BitTree {
   public void load(InputStream source) throws Exception {
     BufferedReader reader = new BufferedReader(new InputStreamReader(source));
     String line;
-    while(reader.ready()){
+    while (reader.ready()) {
       line = reader.readLine();
-      set(line.substring(0, this.size), line.substring(this.size+1, line.length()));
+      set(line.substring(0, this.size), line.substring(this.size + 1, line.length()));
     }
-  }
+  }// load
 
-  public static void main(String[] args) throws Exception {
-    PrintWriter pen = new PrintWriter(System.out, true);
-    BitTree tree = new BitTree(6);
-    tree.set("100000", "A");
-    tree.set("110000", "B");
-    tree.set("100100", "C");
-    tree.set("100110", "D");
+  // +---------+-----------------------------------------------------
+  // | Helpers |
+  // +---------+
 
-    tree.dump(pen);
-    pen.println(tree.get("100000"));
-    pen.println(tree.get("110000"));
-    pen.println(tree.get("100100"));
+  void dumpHelper(PrintWriter pen, BitTreeNode node, String[] bits, int level) {
+    if (node == null) {
+      return;
+    } else if (node.isLeaf()) {
+      for (int i = 0; i < bits.length; i++) {
+        pen.print(bits[i]);
+      }
+      pen.println("," + node.value);
+    } else if ((node.left != null) || (node.right != null)) {
+      bits[level] = node.value;
 
-  }
+      dumpHelper(pen, node.left, bits, ++level);
+      --level;
+      dumpHelper(pen, node.right, bits, ++level);
+
+    } // else-if
+  }// dumpHelper
+  
 }// class BitTree

@@ -1,3 +1,4 @@
+
 /**
  * Contains the main method to do each of the conversions from command-line prompts
  * 
@@ -8,22 +9,43 @@
 import java.io.PrintWriter;
 
 public class BrailleASCII {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     PrintWriter pen = new PrintWriter(System.out, true);
+    String str = args[1];
 
-    if(args.length != 0){
+    //error checking
+    if (args.length != 2) {
       System.err.println("incorrect number of parameters");
       System.exit(1);
-    }
-    
-    if (args[0].equals("braille")) {
-      pen.println(BrailleASCIITables.toBraille(args[1].charAt(0)));
-    } else if (args[0].equals("ascii")) {
-      pen.println(BrailleASCIITables.toASCII(args[1]));
-    } else if (args[0].equals("unicode")) {
-      pen.println(BrailleASCIITables.toUnicode(args[1]));
-    } else {
+    }//if
 
-    }
+
+    if (args[0].equals("braille")) {
+      String result = "";
+
+      for (int i = 0; i < str.length(); i++) {
+        result += BrailleASCIITables.toBraille(str.charAt(i));
+      }//for
+
+      pen.println(result);
+    } else if (args[0].equals("ascii")) {
+      String result = "";
+
+      for (int i = 0; i < str.length(); i += 6) {
+        result += BrailleASCIITables.toASCII(str.substring(i, i + 6));
+      }// for
+
+      pen.println(result);
+    } else if (args[0].equals("unicode")) {
+      String result = "";
+
+      for(int i = 0; i < str.length(); i++){
+        String braille = BrailleASCIITables.toBraille(str.charAt(i));
+        result += BrailleASCIITables.toUnicode(braille);
+      }// for
+
+      pen.println(result);
+    }//else - if
+
   }// main
 }// class BrailleASCII

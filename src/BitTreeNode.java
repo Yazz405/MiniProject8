@@ -38,5 +38,16 @@ public class BitTreeNode {
     this.left = null;
     this.right = null;
 
-  }
+  }// BitTreeNode
+
+  // +---------+-----------------------------------------------------
+  // | Methods |
+  // +---------+
+
+  /*
+   * checks if the node is a leaf
+   */
+  public boolean isLeaf(){
+    return this.left == null && this.right == null;
+  }// isLeaf
 }// class BitTreeNode
