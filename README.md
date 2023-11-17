@@ -6,4 +6,6 @@ Acknowledgements:
             - for help on InputStream in BitTree.load()
         - https://www.programiz.com/java-programming/inputstream
             - for help in InputStream in BrailleASCIITables
+        - https://stackoverflow.com/questions/11145681/how-to-convert-a-string-with-unicode-encoding-to-a-string-of-letters
+            - for help to convert unicode into chars
         

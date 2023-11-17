@@ -41,9 +41,12 @@ public class BrailleASCII {
 
       for(int i = 0; i < str.length(); i++){
         String braille = BrailleASCIITables.toBraille(str.charAt(i));
-        result += BrailleASCIITables.toUnicode(braille);
-      }// for
+        String unicode = BrailleASCIITables.toUnicode(braille);
 
+        int hexval = Integer.parseInt(unicode);
+
+        result += (char)hexval;
+      }// for
       pen.println(result);
     }//else - if
 
